@@ -20,53 +20,6 @@ ul li {
   list-style: none;
 }
 
-header {
-  background-color: black;
-}
-
 body {
   font-family: "Rubik", sans-serif;
-}
-
-h1 {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.container-top {
-  display: flex;
-  max-width: 28%;
-  margin: auto;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 20px;
-  padding-bottom: 10px;
-  color: white;
-}
-
-.container-search input {
-  border-radius: 8px;
-  padding: 8px;
-  border-style: none;
-}
-
-.container-bottom {
-  max-width: 25%;
-  margin: auto;
-  background-color: rgb(0, 0, 0);
-  display: flex;
-  justify-content: space-around;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: 20px;
-}
-
-.container-list ul li {
-  display: inline;
-  margin: 15px;
-}
-
-.container-cart img {
-  max-width: 30px;
-  color: white;
 }
