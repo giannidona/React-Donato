@@ -1,29 +1,38 @@
 import { useState, useEffect } from "react";
-import data from "../data/products.json";
 import { Container, Row } from "react-bootstrap";
 import { ItemList } from "../components/ItemList";
 import { useParams } from "react-router-dom";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
 export const ItemListContainer = ({ greeting }) => {
   const [products, SetProducts] = useState([]);
-
   const { id } = useParams();
 
   useEffect(() => {
-    const promise = new Promise((res, rej) => {
-      setTimeout(() => {
-        res(data);
-      }, 2000);
-    });
+    const database = getFirestore();
+    const refCollection = collection(database, "nfts");
+    const q = id
+      ? query(refCollection, where("category", "==", id))
+      : refCollection;
 
-    promise.then((result) => {
-      if (id) {
-        SetProducts(result.filter((prod) => prod.category === id));
-      } else {
-        SetProducts(result);
-      }
-    });
+    getDocs(q)
+      .then((snapshot) => {
+        const data = snapshot.docs.map((doc) => {
+          return { id: doc.id, ...doc.data() };
+        });
+        SetProducts(data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener datos de Firebase:", error);
+      });
   }, [id]);
+
   return (
     <Container className="mt-4">
       <Row>

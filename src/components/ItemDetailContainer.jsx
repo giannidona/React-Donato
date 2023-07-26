@@ -1,29 +1,40 @@
-import { useState, useEffect } from "react";
-import data from "../data/products.json";
+import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { ItemDetail } from "./ItemDetail";
+import { useParams } from "react-router-dom";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
-export const ItemDetailContainer = (props) => {
-  const [product, SetProduct] = useState([]);
+export const ItemDetailContainer = () => {
+  const [product, setProduct] = useState(null);
+  const { id } = useParams();
 
   useEffect(() => {
-    const promise = new Promise((res, rej) => {
-      setTimeout(() => {
-        res(data);
-      }, 2000);
-    });
+    const database = getFirestore();
+    const refDocument = doc(database, "nfts", id);
 
-    promise.then((result) => {
-      SetProduct(result[1]);
-    });
-  }, []);
+    getDoc(refDocument)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const productData = { id: snapshot.id, ...snapshot.data() };
+          setProduct(productData);
+        } else {
+          console.log("El producto no existe en Firebase.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener el producto desde Firebase:", error);
+      });
+  }, [id]);
+
   return (
     <Container className="mt-4">
       <h1>Product Detail</h1>
-      {product.length === 0 ? (
+      {product === null ? (
         <div>Loading...</div>
       ) : (
-        <ItemDetail prod={product} />
+        <div>
+          <ItemDetail prod={product} />
+        </div>
       )}
     </Container>
   );
