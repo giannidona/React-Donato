@@ -36,7 +36,7 @@ export const ItemCount = ({
         <Button onClick={handleIncrease}>+</Button>
       </ButtonGroup>
       <div className="ml-2">
-        <Button onClick={handleAddToCartButtonClick}>Agregar al carrito</Button>
+        <Button onClick={handleAddToCartButtonClick}>Add to cart</Button>
       </div>
     </div>
   );

@@ -80,9 +80,9 @@ export const Checkout = () => {
 
   return (
     <div className="container mt-4">
-      <h2>Carrito de compras</h2>
+      <h2>Checkout</h2>
       {cartItems.length === 0 ? (
-        <p>Tu carrito está vacío.</p>
+        <p>Your cart is empty.</p>
       ) : (
         <>
           <ul className="list-group">
@@ -91,22 +91,22 @@ export const Checkout = () => {
                 <div className="d-flex justify-content-between align-items-center">
                   <h5>{item.name}</h5>
                   <p>
-                    - Cantidad: {item.quantity} - Precio: {item.totalPrice} ETH
+                    - Quantity: {item.quantity} - Price: {item.totalPrice} ETH
                   </p>
                 </div>
               </li>
             ))}
           </ul>
           <div className="mt-3">
-            <h5>Total de la compra: {totalPurchase} ETH</h5>
+            <h5>Total purchase: {totalPurchase} ETH</h5>
           </div>
         </>
       )}
       <div className="mt-3">
-        <h2>Información del Comprador</h2>
+        <h2>Buyer's information</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formName">
-            <Form.Label>Nombre</Form.Label>
+            <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
               placeholder="Ingresa tu nombre"
@@ -118,7 +118,7 @@ export const Checkout = () => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formPhoneNumber">
-            <Form.Label>Número de teléfono</Form.Label>
+            <Form.Label>Telephone Number</Form.Label>
             <Form.Control
               type="number"
               placeholder="Ingresa tu número de teléfono"
@@ -140,7 +140,7 @@ export const Checkout = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formConfirmEmail">
-            <Form.Label>Confirmar Email</Form.Label>
+            <Form.Label>Email Confirmation</Form.Label>
             <Form.Control
               type="email"
               placeholder="Confirme su correo electrónico"
@@ -151,42 +151,42 @@ export const Checkout = () => {
           </Form.Group>
           {showError && (
             <p style={{ color: "red" }}>
-              Los correos electrónicos no coinciden. Por favor, verifica.
+              The emails do not match. Please check.
             </p>
           )}
           <Button variant="primary" type="submit">
-            Enviar Orden
+            Send Order
           </Button>
         </Form>
       </div>
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Resumen de la Orden</Modal.Title>
+          <Modal.Title>Order Summary</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {orderData && (
             <>
-              <p>ID de la Orden: {orderData.id}</p>
-              <p>Nombre: {orderData.buyer.name}</p>
-              <p>Teléfono: {orderData.buyer.phoneNumber}</p>
-              <p>Correo Electrónico: {email}</p>
-              <h5>Productos:</h5>
+              <p>Order ID: {orderData.id}</p>
+              <p>Name: {orderData.buyer.name}</p>
+              <p>Telephone: {orderData.buyer.phoneNumber}</p>
+              <p>Email: {email}</p>
+              <h5>Products:</h5>
               <ul>
                 {orderData.items.map((item) => (
                   <li key={item.id}>
-                    {item.name} - Cantidad: {item.quantity} - Precio:{" "}
+                    {item.name} - Quantity: {item.quantity} - Price:{" "}
                     {item.totalPrice} ETH
                   </li>
                 ))}
               </ul>
-              <h5>Total de la Compra: {orderData.total} ETH</h5>
+              <h5>Total purchase: {orderData.total} ETH</h5>
             </>
           )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
-            Cerrar
+            Close
           </Button>
         </Modal.Footer>
       </Modal>

@@ -12,9 +12,9 @@ export const Cart = () => {
 
   return (
     <div className="container mt-4">
-      <h2>Carrito de compras</h2>
+      <h2>Cart</h2>
       {cartItems.length === 0 ? (
-        <p>Tu carrito está vacío.</p>
+        <p>Your cart is empty.</p>
       ) : (
         <ul className="list-group">
           {cartItems.map((item) => (
@@ -22,13 +22,13 @@ export const Cart = () => {
               <div className="d-flex justify-content-between align-items-center">
                 <h5>{item.name}</h5>{" "}
                 <p>
-                  - Cantidad: {item.quantity} - Precio: {item.totalPrice} ETH
+                  - Quantity: {item.quantity} - Price: {item.totalPrice} ETH
                 </p>
                 <button
                   className="btn btn-danger btn-sm"
                   onClick={() => removeItem(item.id)}
                 >
-                  Eliminar
+                  Delete
                 </button>
               </div>
             </li>
@@ -37,14 +37,14 @@ export const Cart = () => {
       )}
       {cartItems.length > 0 && (
         <div className="mt-3">
-          <h5>Total de la compra: {totalPurchase} ETH</h5>
+          <h5>Total purchase: {totalPurchase} ETH</h5>
           <Link to="/checkout" className="btn btn-primary mt-2">
-            Finalizar Compra
+            Finalize Purchase
           </Link>
         </div>
       )}
       <button className="btn btn-secondary mt-3" onClick={clear}>
-        Vaciar Carrito
+        Empty Cart
       </button>
     </div>
   );
