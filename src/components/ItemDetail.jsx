@@ -1,22 +1,15 @@
-import { React, useState } from "react";
+import React from "react";
 import { ItemCount } from "./ItemCount";
-import { useCart } from "./CartContext";
+import { useCart } from "../contexts/CartContext";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 export const ItemDetail = ({ prod }) => {
-  const [cartItemCount, setCartItemCount] = useState(1);
-  const { addItem, isInCart } = useCart();
+  const { addItem } = useCart();
 
-  const handleCartItemCountChange = (newCount) => {
-    setCartItemCount(newCount);
-  };
-
-  const handleAddToCart = () => {
-    if (!isInCart(prod.id)) {
-      addItem(prod, cartItemCount);
-    }
+  const handleAddToCart = (quantity) => {
+    addItem(prod, quantity);
   };
 
   return (
@@ -32,15 +25,11 @@ export const ItemDetail = ({ prod }) => {
         <Col>
           <h2>{prod.name}</h2>
           <p className="mb-0">{prod.details}</p>
-          <p className="mb-0">{prod.price}</p>
+          <p className="mb-0"> Stock: {prod.stock}</p>
+          <p className="mb-0">Price: {prod.price} ETH</p>
           <p>{prod.category}</p>
           <div>
-            <ItemCount
-              initialValue={cartItemCount}
-              stock={prod.stock}
-              onCountChange={handleCartItemCountChange}
-              onAddToCart={handleAddToCart}
-            />
+            <ItemCount stock={prod.stock} onAddToCart={handleAddToCart} />
           </div>
         </Col>
       </Row>

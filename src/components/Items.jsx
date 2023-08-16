@@ -11,6 +11,7 @@ export const Item = ({ prod, onProductClick }) => {
         <Card.Body>
           <Card.Title>{prod.name}</Card.Title>
           <Card.Text>{prod.details}</Card.Text>
+          <Card.Text>Stock: {prod.stock}</Card.Text>
           <Card.Text>{prod.price} ETH</Card.Text>
           <Link to={`/item/${prod.id}`}>
             <Button variant="primary">View more</Button>

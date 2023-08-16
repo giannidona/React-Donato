@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CartProvider } from "./components/CartContext";
+import { CartProvider } from "../src/contexts/CartContext";
 import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration

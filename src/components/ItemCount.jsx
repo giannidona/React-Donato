@@ -2,30 +2,24 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 
-export const ItemCount = ({
-  initialValue,
-  stock,
-  onCountChange,
-  onAddToCart,
-}) => {
-  const [count, setCount] = useState(initialValue);
+export const ItemCount = ({ stock, onAddToCart }) => {
+  const [count, setCount] = useState(1);
 
   const handleIncrease = () => {
     if (count < stock) {
       setCount(count + 1);
-      onCountChange(count + 1);
     }
   };
 
   const handleDecrease = () => {
     if (count > 1) {
       setCount(count - 1);
-      onCountChange(count - 1);
     }
   };
 
   const handleAddToCartButtonClick = () => {
     onAddToCart(count);
+    console.log("anda");
   };
 
   return (

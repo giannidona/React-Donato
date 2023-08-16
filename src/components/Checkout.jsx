@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useCart } from "./CartContext";
+import { useCart } from "../contexts/CartContext";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -18,6 +18,7 @@ export const Checkout = () => {
   const [email, setEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [showError, setShowError] = useState(false);
+  const [orderSent, setOrderSent] = useState(false);
 
   useEffect(() => {
     if (orderId) {
@@ -72,6 +73,8 @@ export const Checkout = () => {
       phoneNumber: "",
       email: "",
     });
+
+    setOrderSent(true);
   };
 
   const [showModal, setShowModal] = useState(false);
@@ -104,60 +107,64 @@ export const Checkout = () => {
       )}
       <div className="mt-3">
         <h2>Buyer's information</h2>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formName">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Ingresa tu nombre"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
+        {orderSent ? (
+          <p>Thank you for your order!</p>
+        ) : (
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Ingresa tu nombre"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formPhoneNumber">
-            <Form.Label>Telephone Number</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Ingresa tu número de teléfono"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
+            <Form.Group className="mb-3" controlId="formPhoneNumber">
+              <Form.Label>Telephone Number</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Ingresa tu número de teléfono"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Ingrese su correo electrónico"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formConfirmEmail">
-            <Form.Label>Email Confirmation</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Confirme su correo electrónico"
-              value={confirmEmail}
-              onChange={(e) => setConfirmEmail(e.target.value)}
-              required
-            />
-          </Form.Group>
-          {showError && (
-            <p style={{ color: "red" }}>
-              The emails do not match. Please check.
-            </p>
-          )}
-          <Button variant="primary" type="submit">
-            Send Order
-          </Button>
-        </Form>
+            <Form.Group className="mb-3" controlId="formEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Ingrese su correo electrónico"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formConfirmEmail">
+              <Form.Label>Email Confirmation</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Confirme su correo electrónico"
+                value={confirmEmail}
+                onChange={(e) => setConfirmEmail(e.target.value)}
+                required
+              />
+            </Form.Group>
+            {showError && (
+              <p style={{ color: "red" }}>
+                The emails do not match. Please check.
+              </p>
+            )}
+            <Button variant="primary" type="submit">
+              Send Order
+            </Button>
+          </Form>
+        )}
       </div>
 
       <Modal show={showModal} onHide={handleCloseModal}>
